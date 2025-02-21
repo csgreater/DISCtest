@@ -1,0 +1,11 @@
+{% for question in questions %}
+  <div class="question">
+    <h3>第{{ loop.index }}题</h3>
+    {% for option in question %}  {# 需要确保question是包含4个选项的数组 #}
+      <label>
+        <input type="radio" name="q{{ loop.index }}" value="{{ loop.index0 }}">
+        {{ option.text }}  {# 需要option对象包含text属性 #}
+      </label>
+    {% endfor %}
+  </div>
+{% endfor %} 

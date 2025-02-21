@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>测评结果</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js"></script>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin: 20px;
+      width: 90%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      table-layout: fixed;
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: center;
+      width: 25%;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+    tr.total-row {
+      font-weight: bold;
+      background-color: #e9ecef;
+    }
+    .chart-container {
+      display: flex;
+      justify-content: space-around;
+      margin: 40px 0;
+      gap: 20px;
+    }
+    .chart-box {
+      flex: 1;
+      max-width: 600px;
+      height: 400px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      min-width: 400px;
+    }
+  </style>
+</head>
+
+<body>
+<h1>测评统计结果</h1>
+<h2>维度统计结果</h2>
+<table>
+    <tr>
+        <th>性格维度</th>
+        <th>最符合(M)</th>
+        <th>最不符合(L)</th>
+        <th>差异</th>
+    </tr>
+    {% for dim in ['D', 'I', 'S', 'C'] %}
+    <tr>
+        <td>{{ dim }}</td>
+        <td>{{ m_counts.get(dim, 0) }}</td>
+        <td>{{ l_counts.get(dim, 0) }}</td>
+        <td>{{ m_counts.get(dim,0) - l_counts.get(dim,0) }}</td>
+    </tr>
+    {% endfor %}
+    <tr class="total-row">
+        <td>选项合计</td>
+        <td>{{ m_counts.values()|sum }}</td>
+        <td>{{ l_counts.values()|sum }}</td>
+        <td>{{ (m_counts.values()|sum) - (l_counts.values()|sum) }}</td>
+    </tr>
+</table>
+
+<div class="chart-container">
+  <div id="countChart" class="chart-box"></div>
+  <div id="diffChart" class="chart-box"></div>
+</div>
+
+<script>
+  // 最符合计数图表
+  const countChart = echarts.init(document.getElementById('countChart'));
+  countChart.setOption({
+    title: { text: '现实的我', left: 'center' },
+    xAxis: { type: 'category', data: ['D', 'I', 'S', 'C'] },
+    yAxis: { type: 'value', minInterval: 1 },
+    series: [{
+      type: 'line',
+      smooth: true,
+      data: [
+        {{ m_counts.D|default(0) }},
+        {{ m_counts.I|default(0) }},
+        {{ m_counts.S|default(0) }},
+        {{ m_counts.C|default(0) }}
+      ],
+      itemStyle: { color: '#5470C6' }
+    }]
+  });
+
+  // 差异值图表
+  const diffChart = echarts.init(document.getElementById('diffChart'));
+  diffChart.setOption({
+    title: { text: '本我', left: 'center' },
+    xAxis: { type: 'category', data: ['D', 'I', 'S', 'C'] },
+    yAxis: { type: 'value', minInterval: 1 },
+    series: [{
+      type: 'line',
+      smooth: true,
+      data: [
+        {{ diff_counts.D|default(0) }},
+        {{ diff_counts.I|default(0) }},
+        {{ diff_counts.S|default(0) }},
+        {{ diff_counts.C|default(0) }}
+      ],
+      itemStyle: { color: '#91CC75' }
+    }]
+  });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<div class="score-card">
+    <h3>最终得分（基准分24分）</h3>
+    <table>
+        <tr>
+            <th>维度</th>
+            <th>原始分</th>
+            <th>调整分</th>
+        </tr>
+        {% for dim in ['D', 'I', 'S', 'C'] %}
+        <tr>
+            <td>{{ dim }}</td>
+            <td>{{ scores.get(dim, 0) }}</td>
+            <td>{{ scores.get(dim, 0) + 24 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- 添加结果解释 -->
+<div class="interpretation">
+    <h3>分数说明：</h3>
+    <p>D: {{ scores.get('D',0) + 24 }} - 支配型</p>
+    <p>I: {{ scores.get('I',0) + 24 }} - 影响型</p>
+    <p>S: {{ scores.get('S',0) + 24 }} - 稳健型</p>
+    <p>C: {{ scores.get('C',0) + 24 }} - 谨慎型</p>
+</div>
+
+<div class="score-explanation">
+    <h3>计分规则说明：</h3>
+    <p>• 最符合选项：为该维度+3分</p>
+    <p>• 最不符合选项：其他三个维度各+1分</p>
+    <p>• 调整后分数 = 原始分数 + 24（基准分）</p>
+</div> 

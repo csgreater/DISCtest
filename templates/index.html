@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>测评页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .options-group label {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .options-group label:hover {
+            background-color: #f8f9fa;
+        }
+
+        .options-group input[type="radio"] {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+<h1>测评题目</h1>
+<table>
+    <thead>
+    <tr>
+        <th>题目</th>
+        <th>最符合 (M)</th>
+        <th>最不符合 (L)</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for index in range(1, questions|length + 1) %}
+    <tr>
+        <td>题目 {{ index }}</td>
+        <td>
+            <div class="options-group">
+                {% for option in questions[index-1] %}
+                <label>
+                    <input type="radio" 
+                           name="m-{{ index }}" 
+                           value="{{ loop.index0 }}"
+                           onchange="checkOptions({{ index }})">
+                    {{ option.text }}
+                </label>
+                {% endfor %}
+            </div>
+        </td>
+        <td>
+            <div class="options-group">
+                {% for option in questions[index-1] %}
+                <label>
+                    <input type="radio" 
+                           name="l-{{ index }}" 
+                           value="{{ loop.index0 }}"
+                           onchange="checkOptions({{ index }})">
+                    {{ option.text }}
+                </label>
+                {% endfor %}
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<button type="button" onclick="submitSurvey()">提交</button>
+<script>
+    function checkOptions(questionIndex) {
+        var mRadios = document.querySelectorAll('input[name="m-' + questionIndex + '"]');
+        var lRadios = document.querySelectorAll('input[name="l-' + questionIndex + '"]');
+        
+        var mValue = Array.from(mRadios).find(r => r.checked)?.value;
+        var lValue = Array.from(lRadios).find(r => r.checked)?.value;
+        
+        if (mValue === lValue && mValue !== undefined) {
+            alert('最符合和最不符合不能选择相同的选项，请重新选择！');
+            // 清空其中一个选择
+            if (mValue !== undefined && lValue !== undefined) {
+                Array.from(mRadios).forEach(r => r.checked = false);
+                Array.from(lRadios).forEach(r => r.checked = false);
+            }
+        }
+    }
+
+    function submitSurvey() {
+        var data = {};
+        var questionCount = {{ questions|length }};
+        for (var i = 1; i <= questionCount; i++) {
+            // 获取单选按钮的值
+            var mRadios = document.querySelectorAll('input[name="m-' + i + '"]');
+            var lRadios = document.querySelectorAll('input[name="l-' + i + '"]');
+            var mValue = Array.from(mRadios).find(r => r.checked)?.value;
+            var lValue = Array.from(lRadios).find(r => r.checked)?.value;
+            
+            if (mValue === lValue) {
+                alert('第 ' + i + ' 题最符合和最不符合不能选择相同的选项，请重新选择！');
+                return;
+            }
+            data[i.toString()] = {
+                "M": mValue,
+                "L": lValue
+            };
+        }
+        fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === "success") {
+                    window.location.href = '/results';
+                } else {
+                    alert(result.message);
+                }
+            });
+    }
+</script>
+</body>
+
+</html>

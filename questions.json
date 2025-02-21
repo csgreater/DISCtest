@@ -1,0 +1,122 @@
+[
+  [
+    {"text": "理性的，坚决的", "dimension": "D", "score": 1},
+    {"text": "愉快的，热情的", "dimension": "I", "score": 2},
+    {"text": "值得信赖，稳重的", "dimension": "S", "score": 3},
+    {"text": "细致的，认真的", "dimension": "C", "score": 4}
+  ],
+  [
+    {"text": "认真周到的，安静的", "dimension": "C", "score": 5},
+    {"text": "稳重的，值得信赖的", "dimension": "S", "score": 6},
+    {"text": "乐群的，热情洋溢的", "dimension": "I", "score": 7},
+    {"text": "独立的，主动的", "dimension": "D", "score": 8}
+  ],
+  [
+    {"text": "爱社交的，令人愉快的", "dimension": "I", "score": 9},
+    {"text": "有纪律的，敬业的", "dimension": "C", "score": 10},
+    {"text": "掌控的，真言的", "dimension": "D", "score": 11},
+    {"text": "耳根软的，随和的", "dimension": "S", "score": 12}
+  ],
+  [
+    {"text": "有修养的，平和的", "dimension": "C", "score": 13},
+    {"text": "开朗的，合群的", "dimension": "I", "score": 14},
+    {"text": "体贴的，客气的", "dimension": "S", "score": 15},
+    {"text": "敢为的，意志坚强的", "dimension": "D", "score": 16}
+  ],
+  [
+    {"text": "乐观的，活泼的", "dimension": "I", "score": 17},
+    {"text": "有意志力的，敢为的", "dimension": "D", "score": 18},
+    {"text": "慎重的，仔细的", "dimension": "C", "score": 19},
+    {"text": "乐于助人的，好心的", "dimension": "S", "score": 20}
+  ],
+  [
+    {"text": "好胜的，竞争的", "dimension": "D", "score": 21},
+    {"text": "热情的，易相处的", "dimension": "I", "score": 22},
+    {"text": "体谅的，有同情心的", "dimension": "S", "score": 23},
+    {"text": "守纪律的，自我约束的", "dimension": "C", "score": 24}
+  ],
+  [
+    {"text": "依从的，能适应的", "dimension": "C", "score": 25},
+    {"text": "易相处，有包容心的", "dimension": "S", "score": 26},
+    {"text": "喜欢交友，开放的", "dimension": "I", "score": 27},
+    {"text": "创新的，有个性的", "dimension": "D", "score": 28}
+  ],
+  [
+    {"text": "宽容的，有说服力的", "dimension": "I", "score": 29},
+    {"text": "有组织力，遵循纪律的", "dimension": "C", "score": 30},
+    {"text": "稳健的，有节制的", "dimension": "D", "score": 31},
+    {"text": "果断的，坚定的", "dimension": "S", "score": 32}
+  ],
+  [
+    {"text": "公正的，有原则的", "dimension": "C", "score": 33},
+    {"text": "喜欢自由，合群的", "dimension": "I", "score": 34},
+    {"text": "温和的，含蓄的", "dimension": "S", "score": 35},
+    {"text": "自信的，自我肯定的", "dimension": "D", "score": 36}
+  ],
+  [
+    {"text": "抢眼的，活泼的", "dimension": "I", "score": 37},
+    {"text": "意志坚强，目标导向的", "dimension": "D", "score": 38},
+    {"text": "重视数据，事实，诚信的", "dimension": "C", "score": 39},
+    {"text": "有弹性的，能适应的", "dimension": "S", "score": 40}
+  ],
+  [
+    {"text": "激进的，勇敢的", "dimension": "D", "score": 41},
+    {"text": "平和的，满足的", "dimension": "I", "score": 42},
+    {"text": "依赖及信任他人的", "dimension": "S", "score": 43},
+    {"text": "勤奋的，注意细节的", "dimension": "C", "score": 44}
+  ],
+  [
+    {"text": "有条不紊，一丝不苟的", "dimension": "C", "score": 45},
+    {"text": "敏感的，同情的", "dimension": "S", "score": 46},
+    {"text": "悦人的，吸引人的", "dimension": "I", "score": 47},
+    {"text": "坚决的，有个性的", "dimension": "D", "score": 48}
+  ],
+  [
+    {"text": "能激励人的", "dimension": "I", "score": 49},
+    {"text": "害羞的，内秀的", "dimension": "C", "score": 50},
+    {"text": "喜欢争论的，直率的", "dimension": "D", "score": 51},
+    {"text": "好助人的，慈善的", "dimension": "S", "score": 52}
+  ],
+  [
+    {"text": "好奇的，善于观察的", "dimension": "C", "score": 53},
+    {"text": "幽默的，爱社交的", "dimension": "I", "score": 54},
+    {"text": "乐意帮助他人的", "dimension": "S", "score": 55},
+    {"text": "控制的，无畏的", "dimension": "D", "score": 56}
+  ],
+  [
+    {"text": "无忧无虑的，开朗的", "dimension": "I", "score": 57},
+    {"text": "有坚定信念，不屈不挠的", "dimension": "D", "score": 58},
+    {"text": "善于分析的，精准的", "dimension": "C", "score": 59},
+    {"text": "温和的，仁慈的", "dimension": "S", "score": 60}
+  ],
+  [
+    {"text": "有远见，寻求变革的", "dimension": "D", "score": 61},
+    {"text": "引人注意的，受赞赏的", "dimension": "I", "score": 62},
+    {"text": "完美主义的，不妥协的", "dimension": "S", "score": 63},
+    {"text": "拘谨的，忠诚的", "dimension": "C", "score": 64}
+  ],
+  [
+    {"text": "安分的，守纪律的", "dimension": "C", "score": 65},
+    {"text": "宽厚的，心软的", "dimension": "S", "score": 66},
+    {"text": "热忱的，激励别人的", "dimension": "I", "score": 67},
+    {"text": "有进取心，坚决的", "dimension": "D", "score": 68}
+  ],
+  [
+    {"text": "说话流畅，善于表达的", "dimension": "I", "score": 69},
+    {"text": "谨慎的，准确的", "dimension": "C", "score": 70},
+    {"text": "掌握大局，精力充沛的", "dimension": "D", "score": 71},
+    {"text": "体恤人的，性格好的", "dimension": "S", "score": 72}
+  ],
+  [
+    {"text": "小心的，认真的", "dimension": "C", "score": 73},
+    {"text": "外向的，健谈的", "dimension": "I", "score": 74},
+    {"text": "专心的，坚持的", "dimension": "S", "score": 75},
+    {"text": "有毅力，坚决的", "dimension": "D", "score": 76}
+  ],
+  [
+    {"text": "受欢迎的，人见人爱的", "dimension": "I", "score": 77},
+    {"text": "自信，毋庸置疑的", "dimension": "D", "score": 78},
+    {"text": "遵照原则，实际的", "dimension": "C", "score": 79},
+    {"text": "妥协的，易同意的", "dimension": "S", "score": 80}
+  ]
+]
