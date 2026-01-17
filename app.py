@@ -1,9 +1,13 @@
 import json
+import os
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # 硬编码密钥
-# 应改为从环境变量读取
+app.secret_key = os.environ.get('SECRET_KEY', 'default_fallback_key')  # 从环境变量读取密钥
+
+# 如果是默认密钥，在开发环境显示警告
+if app.secret_key == 'default_fallback_key' and os.environ.get('FLASK_ENV') != 'production':
+    print('警告: 使用了默认密钥，在生产环境中请设置SECRET_KEY环境变量!')
 
 # 先定义验证函数
 def validate_questions():
@@ -45,6 +49,17 @@ def test():
         session['scores'] = calculate_scores(request.form)
         return redirect(url_for('result'))
     return render_template('test.html', questions=questions)  # 测试页模板
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """简单的登录页面，仅用于演示"""
+    if request.method == 'POST':
+        username = request.form.get('username')
+        if username:  # 简单验证，实际应该检查密码等
+            session['user'] = username
+            return redirect(url_for('test'))
+    return render_template('login.html')
 
 
 def calculate_scores(answers):
@@ -153,8 +168,20 @@ def validate_questions_route():
         return f"题目数据错误: {str(e)}", 500
 
 
+@app.route('/logout')
+def logout():
+    """注销功能"""
+    session.pop('user', None)
+    session.pop('scores', None)
+    return redirect(url_for('index'))
+
+
 if __name__ == '__main__':
+    # 从环境变量获取调试模式，默认为False
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    
     try:
-        app.run(debug=True)
+        # 在生产环境中，应该使用Gunicorn等WSGI服务器运行Flask应用
+        app.run(debug=debug_mode, host='0.0.0.0', port=5000)
     except Exception as e:
         print(f"启动 Flask 应用时出错: {str(e)}")

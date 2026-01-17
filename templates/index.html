@@ -3,89 +3,206 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>测评页面</title>
     <style>
+        /* CSS变量定义 */
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #10b981;
+            --secondary-hover: #059669;
+            --background-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
             padding: 20px;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
         }
 
+        /* 表格样式 */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow-lg);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
         }
 
         th,
         td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px;
             text-align: center;
         }
 
         th {
-            background-color: #007BFF;
+            background-color: var(--primary-color);
             color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        tr:last-child td {
+            border-bottom: none;
         }
 
+        tr:hover {
+            background-color: rgba(79, 70, 229, 0.05);
+            transition: var(--transition);
+        }
+
+        /* 按钮样式 */
         button {
             display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px;
-            background-color: #28a745;
+            width: 220px;
+            margin: 30px auto;
+            padding: 14px;
+            background-color: var(--secondary-color);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
         }
 
         button:hover {
-            background-color: #218838;
+            background-color: var(--secondary-hover);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* 选项组样式 */
         .options-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .options-group label {
             display: flex;
             align-items: center;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
             cursor: pointer;
+            transition: var(--transition);
+            background-color: white;
+            font-weight: 500;
         }
 
         .options-group label:hover {
-            background-color: #f8f9fa;
+            border-color: var(--primary-color);
+            background-color: rgba(79, 70, 229, 0.05);
         }
 
         .options-group input[type="radio"] {
-            margin-right: 8px;
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                padding: 12px 8px;
+                font-size: 14px;
+            }
+
+            button {
+                width: 100%;
+                max-width: 300px;
+                font-size: 16px;
+            }
+
+            .options-group label {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            th, td {
+                padding: 10px 6px;
+                font-size: 13px;
+            }
+
+            .options-group label {
+                padding: 8px 10px;
+            }
         }
     </style>
 </head>
 
 <body>
+<div class="container">
 <h1>测评题目</h1>
 <table>
     <thead>
@@ -184,6 +301,6 @@
             });
     }
 </script>
+</div>
 </body>
-
 </html>
