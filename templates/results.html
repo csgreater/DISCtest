@@ -6,205 +6,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>测评结果</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js"></script>
-  <style>
-    /* CSS变量定义 - 与index.html保持一致 */
-    :root {
-      --primary-color: #4f46e5;
-      --primary-hover: #4338ca;
-      --secondary-color: #10b981;
-      --secondary-hover: #059669;
-      --background-color: #f8fafc;
-      --card-bg: #ffffff;
-      --text-primary: #1e293b;
-      --text-secondary: #64748b;
-      --border-color: #e2e8f0;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --radius-sm: 4px;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --transition: all 0.3s ease;
-    }
-
-    /* 全局重置 */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background-color: var(--background-color);
-      color: var(--text-primary);
-      line-height: 1.6;
-      padding: 20px;
-    }
-
-    /* 容器 */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      text-align: center;
-      color: var(--text-primary);
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 30px;
-      padding-bottom: 12px;
-      border-bottom: 3px solid var(--primary-color);
-    }
-
-    h2 {
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 25px;
-      margin-top: 40px;
-    }
-
-    /* 表格样式 */
-    table {
-      width: 90%;
-      border-collapse: collapse;
-      margin: 0 auto 40px;
-      background-color: var(--card-bg);
-      box-shadow: var(--shadow-lg);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-
-    th, td {
-      border-bottom: 1px solid var(--border-color);
-      padding: 18px 20px;
-      text-align: center;
-      font-size: 16px;
-    }
-
-    th {
-      background-color: var(--primary-color);
-      color: white;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    tr:hover {
-      background-color: rgba(79, 70, 229, 0.05);
-      transition: var(--transition);
-    }
-
-    /* 合计行样式 */
-    tr.total-row {
-      font-weight: 700;
-      background-color: rgba(16, 185, 129, 0.1);
-      color: var(--text-primary);
-    }
-
-    tr.total-row td {
-      border-top: 2px solid var(--secondary-color);
-    }
-
-    /* 图表容器样式 */
-    .chart-container {
-      display: flex;
-      justify-content: space-around;
-      margin: 40px 0;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .chart-box {
-      flex: 1;
-      min-width: 320px;
-      max-width: 600px;
-      height: 400px;
-      background-color: var(--card-bg);
-      box-shadow: var(--shadow-lg);
-      padding: 25px;
-      border-radius: var(--radius-lg);
-      transition: var(--transition);
-    }
-
-    .chart-box:hover {
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      transform: translateY(-5px);
-    }
-
-    /* 响应式设计 */
-    @media (max-width: 768px) {
-      body {
-        padding: 10px;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-      }
-
-      h2 {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-      }
-
-      table {
-        width: 100%;
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-
-      th, td {
-        padding: 12px 15px;
-        font-size: 14px;
-      }
-
-      .chart-container {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .chart-box {
-        max-width: 100%;
-        min-width: auto;
-        height: 350px;
-        padding: 15px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      h2 {
-        font-size: 1.1rem;
-      }
-
-      th, td {
-        padding: 10px 8px;
-        font-size: 13px;
-      }
-
-      .chart-box {
-        height: 300px;
-        padding: 12px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
 <div class="container">
-<h1>测评统计结果</h1>
+    <!-- 导航栏 -->
+    <nav>
+        <div>
+            <div>
+                <h2>DISC测评系统</h2>
+            </div>
+            <div>
+                {% if session.user %}
+                    <span>欢迎，{{ session.user }} ({{ session.role }})</span>
+                    <a href="/my_records">个人记录</a>
+                    {% if session.role == 'admin' %}
+                        <a href="/all_records">所有记录</a>
+                    {% endif %}
+                    <a href="/logout">退出</a>
+                {% else %}
+                    <a href="/login">登录</a>
+                    <a href="/register">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+<h1>测评完整结果</h1>
+{% if result %}
+<h2>测评信息</h2>
+<table>
+    <tr>
+        <th>测评时间</th>
+        <th>人格类型</th>
+        <th>D得分</th>
+        <th>I得分</th>
+        <th>S得分</th>
+        <th>C得分</th>
+    </tr>
+    <tr>
+        <td>{{ result.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        <td>{{ result.personality }}</td>
+        <td>{{ result.scores.D }}</td>
+        <td>{{ result.scores.I }}</td>
+        <td>{{ result.scores.S }}</td>
+        <td>{{ result.scores.C }}</td>
+    </tr>
+</table>
+{% endif %}
 <h2>维度统计结果</h2>
 <table>
     <tr>
@@ -238,9 +88,9 @@
   // 最符合计数图表
   const countChart = echarts.init(document.getElementById('countChart'));
   countChart.setOption({
-    title: { text: '现实的我', left: 'center' },
-    xAxis: { type: 'category', data: ['D', 'I', 'S', 'C'] },
-    yAxis: { type: 'value', minInterval: 1 },
+    title: { text: '现实的我', left: 'center', textStyle: { color: '#1e293b', fontWeight: 'bold' } },
+    xAxis: { type: 'category', data: ['D', 'I', 'S', 'C'], axisLine: { lineStyle: { color: '#e2e8f0' } } },
+    yAxis: { type: 'value', minInterval: 1, axisLine: { lineStyle: { color: '#e2e8f0' } } },
     series: [{
       type: 'line',
       smooth: true,
@@ -250,16 +100,20 @@
         {{ m_counts.S|default(0) }},
         {{ m_counts.C|default(0) }}
       ],
-      itemStyle: { color: '#5470C6' }
+      itemStyle: { color: '#60a5fa' },
+      areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+        { offset: 0, color: 'rgba(96, 165, 250, 0.3)' },
+        { offset: 1, color: 'rgba(96, 165, 250, 0.05)' }
+      ]) }
     }]
   });
 
   // 差异值图表
   const diffChart = echarts.init(document.getElementById('diffChart'));
   diffChart.setOption({
-    title: { text: '本我', left: 'center' },
-    xAxis: { type: 'category', data: ['D', 'I', 'S', 'C'] },
-    yAxis: { type: 'value', minInterval: 1 },
+    title: { text: '本我', left: 'center', textStyle: { color: '#1e293b', fontWeight: 'bold' } },
+    xAxis: { type: 'category', data: ['D', 'I', 'S', 'C'], axisLine: { lineStyle: { color: '#e2e8f0' } } },
+    yAxis: { type: 'value', minInterval: 1, axisLine: { lineStyle: { color: '#e2e8f0' } } },
     series: [{
       type: 'line',
       smooth: true,
@@ -269,10 +123,127 @@
         {{ diff_counts.S|default(0) }},
         {{ diff_counts.C|default(0) }}
       ],
-      itemStyle: { color: '#91CC75' }
+      itemStyle: { color: '#22d3ee' },
+      areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+        { offset: 0, color: 'rgba(34, 211, 238, 0.3)' },
+        { offset: 1, color: 'rgba(34, 211, 238, 0.05)' }
+      ]) }
     }]
   });
 </script>
+
+<!-- 文字版测评报告 -->
+<div class="report-section">
+    <h2>文字版测评报告</h2>
+    
+    <div class="report-card">
+        <h3>测评总结</h3>
+        <div class="animal-section">
+            <div class="animal-icon" style="font-size: 3rem; margin-right: 20px;">
+                {% if report.animal == '老虎' %}🐯{% elif report.animal == '孔雀' %}🦚{% elif report.animal == '考拉' %}🐨{% elif report.animal == '猫头鹰' %}🦉{% endif %}
+            </div>
+            <div>
+                <p>{{ report.summary }}</p>
+                <p style="margin-top: 10px; font-style: italic; color: #64748b;">您的性格动物形象：{{ report.animal }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="report-card">
+        <h3>各维度分析</h3>
+        <ul>
+            {% for dim, description in report.dimensions.items() %}
+            <li><strong>{{ dim }}:</strong> {{ description }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="report-card">
+        <h3>优势分析</h3>
+        <ul>
+            {% for strength in report.strengths %}
+            <li>{{ strength }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="report-card">
+        <h3>待发展领域</h3>
+        <ul>
+            {% for weakness in report.weaknesses %}
+            <li>{{ weakness }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="report-card">
+        <h3>职业建议</h3>
+        <p>{{ report.career }}</p>
+    </div>
+    
+    <div class="report-card">
+        <h3>沟通建议</h3>
+        <p>{{ report.communication }}</p>
+    </div>
+</div>
+
+<style>
+    .report-section {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #f8fafc;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .report-section h2 {
+        color: #1e293b;
+        margin-bottom: 24px;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+    
+    .report-card {
+        background-color: white;
+        border-radius: 6px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .report-card h3 {
+        color: #3b82f6;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 8px;
+    }
+    
+    .report-card p {
+        line-height: 1.6;
+        color: #475569;
+    }
+    
+    .report-card ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        line-height: 1.6;
+        color: #475569;
+    }
+    
+    .report-card li {
+        margin-bottom: 8px;
+    }
+    
+    .animal-section {
+        display: flex;
+        align-items: center;
+    }
+    
+    .animal-icon {
+        flex-shrink: 0;
+    }
+</style>
 </div>
 </body>
 </html>

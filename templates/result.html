@@ -1,33 +1,77 @@
-<div class="score-card">
-    <h3>最终得分（基准分24分）</h3>
-    <table>
-        <tr>
-            <th>维度</th>
-            <th>原始分</th>
-            <th>调整分</th>
-        </tr>
-        {% for dim in ['D', 'I', 'S', 'C'] %}
-        <tr>
-            <td>{{ dim }}</td>
-            <td>{{ scores.get(dim, 0) }}</td>
-            <td>{{ scores.get(dim, 0) + 24 }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测评结果</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <!-- 导航栏 -->
+    <nav>
+        <div>
+            <div>
+                <h2>DISC测评系统</h2>
+            </div>
+            <div>
+                {% if session.user %}
+                    <span>欢迎，{{ session.user }} ({{ session.role }})</span>
+                    <a href="/my_records">个人记录</a>
+                    {% if session.role == 'admin' %}
+                        <a href="/all_records">所有记录</a>
+                    {% endif %}
+                    <a href="/logout">退出</a>
+                {% else %}
+                    <a href="/login">登录</a>
+                    <a href="/register">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
 
-<!-- 添加结果解释 -->
-<div class="interpretation">
-    <h3>分数说明：</h3>
-    <p>D: {{ scores.get('D',0) + 24 }} - 支配型</p>
-    <p>I: {{ scores.get('I',0) + 24 }} - 影响型</p>
-    <p>S: {{ scores.get('S',0) + 24 }} - 稳健型</p>
-    <p>C: {{ scores.get('C',0) + 24 }} - 谨慎型</p>
-</div>
+    <h1>测评结果</h1>
 
-<div class="score-explanation">
-    <h3>计分规则说明：</h3>
-    <p>• 最符合选项：为该维度+3分</p>
-    <p>• 最不符合选项：其他三个维度各+1分</p>
-    <p>• 调整后分数 = 原始分数 + 24（基准分）</p>
-</div> 
+    <!-- 成功提示 -->
+    <div class="success-message">
+        <p>测评结果已成功保存到数据库！</p>
+    </div>
+
+    <div class="card">
+        <h3>最终得分（基准分24分）</h3>
+        <table>
+            <tr>
+                <th>维度</th>
+                <th>原始分</th>
+                <th>调整分</th>
+            </tr>
+            {% for dim in ['D', 'I', 'S', 'C'] %}
+            <tr>
+                <td>{{ dim }}</td>
+                <td>{{ scores.get(dim, 0) }}</td>
+                <td>{{ scores.get(dim, 0) + 24 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- 添加结果解释 -->
+    <div class="card">
+        <h3>分数说明：</h3>
+        <p>D: {{ scores.get('D',0) + 24 }} - 支配型</p>
+        <p>I: {{ scores.get('I',0) + 24 }} - 影响型</p>
+        <p>S: {{ scores.get('S',0) + 24 }} - 稳健型</p>
+        <p>C: {{ scores.get('C',0) + 24 }} - 谨慎型</p>
+    </div>
+
+    <div class="card">
+        <h3>计分规则说明：</h3>
+        <p>• 最符合选项：为该维度+3分</p>
+        <p>• 最不符合选项：其他三个维度各+1分</p>
+        <p>• 调整后分数 = 原始分数 + 24（基准分）</p>
+    </div>
+
+    <button type="button" onclick="window.location.href='/'">返回首页</button>
+</div>
+</body>
+</html>

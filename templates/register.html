@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <!-- 导航栏 -->
+    <nav>
+        <div>
+            <div>
+                <h2>DISC测评系统</h2>
+            </div>
+            <div>
+                <a href="/login">登录</a>
+                <a href="/">首页</a>
+            </div>
+        </div>
+    </nav>
+
+    <h1>用户注册</h1>
+    
+    <div class="form-container">
+        <form method="POST">
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">账号</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit">注册</button>
+        </form>
+        
+        <div class="login-link">
+            <p>已有账号？<a href="/login">点击登录</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

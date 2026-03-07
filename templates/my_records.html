@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人测评记录</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav>
+            <div>
+                <div>
+                    <h2>DISC测评系统</h2>
+                </div>
+                <div>
+                    {% if session.user %}
+                        <span>欢迎，{{ session.user }} ({{ session.role }})</span>
+                        <a href="/my_records">个人记录</a>
+                        {% if session.role == 'admin' %}
+                            <a href="/all_records">所有记录</a>
+                        {% endif %}
+                        <a href="/logout">退出</a>
+                    {% else %}
+                        <a href="/login">登录</a>
+                        <a href="/register">注册</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+
+        <h1>个人测评记录</h1>
+        {% if results %}
+        <table>
+            <thead>
+                <tr>
+                    <th>测评时间</th>
+                    <th>人格类型</th>
+                    <th>D得分</th>
+                    <th>I得分</th>
+                    <th>S得分</th>
+                    <th>C得分</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td><a href="/result/{{ result.id }}" style="color: #4f46e5; text-decoration: none;">{{ result.personality }}</a></td>
+                    <td>{{ result.scores.D }}</td>
+                    <td>{{ result.scores.I }}</td>
+                    <td>{{ result.scores.S }}</td>
+                    <td>{{ result.scores.C }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="card" style="text-align: center; padding: 40px;">
+            <p>暂无测评记录</p>
+        </div>
+        {% endif %}
+        <div style="display: flex; gap: 10px; margin-top: 20px; justify-content: center;">
+            <a href="/" class="btn">返回首页</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测评题目 - 第{{ q_num }}题</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* 题目页面特定样式 */
+        .question-container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            margin: 30px auto;
+            max-width: 800px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+        }
+        
+        .question-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .option-section {
+            margin-bottom: 30px;
+        }
+        
+        .option-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-group button {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        @media (max-width: 768px) {
+            .question-container {
+                padding: 20px;
+                margin: 20px auto;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn-group button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <!-- 导航栏 -->
+    <nav>
+        <div>
+            <div>
+                <h2>DISC测评系统</h2>
+            </div>
+            <div>
+                {% if session.user %}
+                    <span>欢迎，{{ session.user }} ({{ session.role }})</span>
+                    <a href="/my_records">个人记录</a>
+                    {% if session.role == 'admin' %}
+                        <a href="/all_records">所有记录</a>
+                    {% endif %}
+                    <a href="/logout">退出</a>
+                {% else %}
+                    <a href="/login">登录</a>
+                    <a href="/register">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="question-container fade-in">
+        <div class="question-header">
+            <h1>测评题目</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ (q_num / total) * 100 }}%"></div>
+            </div>
+            <p style="margin-top: 10px; color: var(--text-secondary);">第 {{ q_num }} 题 / 共 {{ total }} 题</p>
+        </div>
+        
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="option-section">
+                <h3>请选择最符合您的选项</h3>
+                <div class="options-group">
+                    {% for option in question %}
+                    <label>
+                        <input type="radio" 
+                               name="m" 
+                               value="{{ loop.index0 }}"
+                               {% if m_value == loop.index0|string %}checked{% endif %}>
+                        {{ option.text }}
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="option-section">
+                <h3>请选择最不符合您的选项</h3>
+                <div class="options-group">
+                    {% for option in question %}
+                    <label>
+                        <input type="radio" 
+                               name="l" 
+                               value="{{ loop.index0 }}"
+                               {% if l_value == loop.index0|string %}checked{% endif %}>
+                        {{ option.text }}
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                {% if q_num > 1 %}
+                <button type="button" onclick="window.location.href='/question/{{ q_num - 1 }}'" style="background: linear-gradient(135deg, var(--secondary-color), var(--secondary-hover));">上一题</button>
+                {% else %}
+                <button type="button" disabled style="background: linear-gradient(135deg, var(--secondary-color), var(--secondary-hover)); opacity: 0.6; cursor: not-allowed;">上一题</button>
+                {% endif %}
+                
+                {% if q_num < total %}
+                <button type="submit">下一题</button>
+                {% else %}
+                <button type="submit">完成</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // 检查选项是否相同
+    function checkOptions() {
+        var mRadios = document.querySelectorAll('input[name="m"]');
+        var lRadios = document.querySelectorAll('input[name="l"]');
+        
+        var mValue = Array.from(mRadios).find(r => r.checked)?.value;
+        var lValue = Array.from(lRadios).find(r => r.checked)?.value;
+        
+        if (mValue === lValue && mValue !== undefined) {
+            alert('最符合和最不符合不能选择相同的选项，请重新选择！');
+            // 清空其中一个选择
+            if (mValue !== undefined && lValue !== undefined) {
+                Array.from(lRadios).forEach(r => r.checked = false);
+            }
+        }
+    }
+    
+    // 为所有单选按钮添加change事件监听器
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', checkOptions);
+    });
+</script>
+</body>
+</html>

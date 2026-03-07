@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提交确认</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* 提交确认页面特定样式 */
+        .confirm-container {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            margin: 30px auto;
+            max-width: 600px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6));
+        }
+        
+        .confirm-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .confirm-text {
+            margin-bottom: 30px;
+        }
+        
+        .confirm-text h2 {
+            margin-bottom: 15px;
+        }
+        
+        .confirm-text p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .confirm-container {
+                padding: 30px 20px;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <!-- 导航栏 -->
+    <nav>
+        <div>
+            <div>
+                <h2>DISC测评系统</h2>
+            </div>
+            <div>
+                {% if session.user %}
+                    <span>欢迎，{{ session.user }} ({{ session.role }})</span>
+                    <a href="/my_records">个人记录</a>
+                    {% if session.role == 'admin' %}
+                        <a href="/all_records">所有记录</a>
+                    {% endif %}
+                    <a href="/logout">退出</a>
+                {% else %}
+                    <a href="/login">登录</a>
+                    <a href="/register">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="confirm-container fade-in">
+        <div class="confirm-icon">✓</div>
+        <div class="confirm-text">
+            <h2>测评完成！</h2>
+            <p>您已完成全部 {{ total }} 道测评题目</p>
+            <p>点击下方按钮提交您的测评结果</p>
+        </div>
+        
+        <form method="POST">
+            <button type="submit">提交测评</button>
+        </form>
+        
+        <p style="margin-top: 20px; color: var(--text-secondary);">
+            <a href="/test" style="color: var(--primary-color); text-decoration: none;">重新开始测评</a>
+        </p>
+    </div>
+</div>
+</body>
+</html>
